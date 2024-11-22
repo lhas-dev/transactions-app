@@ -1,14 +1,17 @@
 import { Transaction } from "../types";
+import { v4 as uuid } from "uuid";
 
 const getPastTransactions = async () => {
   return [
     {
-      id: 1,
+      id: uuid(),
       amount: 100,
+      date: "2024-11-22",
     },
     {
-      id: 2,
-      amount: 100,
+      id: uuid(),
+      amount: 200,
+      date: "2024-11-21",
     },
   ] as Array<Transaction>;
 };

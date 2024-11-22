@@ -10,12 +10,16 @@ const TransactionsList = ({
       {transactions.map((transaction) => (
         <li key={transaction.id}>
           <p>
-            <strong>ID:</strong>
+            <strong>Transaction ID:</strong>
             {transaction.id}
           </p>
           <p>
             <strong>Amount:</strong>
             {transaction.amount}
+          </p>
+          <p>
+            <strong>Date:</strong>
+            {transaction.date}
           </p>
         </li>
       ))}

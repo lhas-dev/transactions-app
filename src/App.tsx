@@ -4,6 +4,7 @@ import getPastTransactions from "./helpers/getPastTransactions";
 import TransactionsList from "./components/TransactionsList";
 import AddTransactionForm from "./components/AddTransactionForm";
 import SearchForm from "./components/SearchForm";
+import { v4 as uuid } from "uuid";
 
 export default function App() {
   const [transactions, setTransactions] = useState<Array<Transaction>>([]);
@@ -23,7 +24,16 @@ export default function App() {
     console.log("endDate", endDate);
   };
 
-  const onAdd = (value: string) => {};
+  const onAdd = (amount: string) => {
+    setTransactions((prev) => [
+      ...prev,
+      {
+        id: uuid(),
+        amount: parseFloat(amount),
+        date: new Date().toISOString().slice(0, 10),
+      },
+    ]);
+  };
 
   return (
     <div className="App">

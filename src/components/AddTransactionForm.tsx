@@ -1,11 +1,26 @@
 import { useState } from "react";
 
-const AddTransactionForm = ({ onSubmit }) => {
+interface AddTransactionFormProps {
+  onSubmit: (amount: string) => void;
+}
+
+const AddTransactionForm = ({ onSubmit }: AddTransactionFormProps) => {
   const [amount, setAmount] = useState("");
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    onSubmit(amount);
+    setAmount("");
+  };
+
   return (
-    <form onSubmit={onSubmit}>
-      <input type="number" placeholder="Amount" />
+    <form onSubmit={handleSubmit}>
+      <input
+        type="number"
+        value={amount}
+        onChange={(event) => setAmount(event.target.value)}
+        placeholder="Amount"
+      />
       <button type="submit">Add Transaction</button>
     </form>
   );
