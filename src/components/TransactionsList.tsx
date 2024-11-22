@@ -5,6 +5,9 @@ const TransactionsList = ({
 }: {
   transactions: Array<Transaction>;
 }) => {
+  if (transactions.length === 0)
+    return <div>No matching transactions found.</div>;
+
   return (
     <ul>
       {transactions.map((transaction) => (

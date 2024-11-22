@@ -9,6 +9,8 @@ import CheckTransactionsForm from "./components/forms/CheckTransactionsForm";
 
 export default function App() {
   const [transactions, setTransactions] = useState<Array<Transaction>>([]);
+  const [filteredTransactions, setFilteredTransactions] =
+    useState<Array<Transaction> | null>();
 
   useEffect(() => {
     const cb = async () => {
@@ -36,15 +38,29 @@ export default function App() {
     ]);
   };
 
-  const onCheck = () => {
-    console.log("Checking transactions");
+  const onCheck = (amount: string) => {
+    if (amount === "") {
+      setFilteredTransactions(null);
+      return;
+    }
+    const compatibleTransactions = transactions.filter(
+      (transaction) => transaction.amount === parseFloat(amount)
+    );
+
+    console.log("compatibleTransactions", compatibleTransactions);
+
+    setFilteredTransactions(compatibleTransactions);
   };
 
   return (
     <div className="App">
       <SearchForm onSubmit={onSearch} />
       <AddTransactionForm onSubmit={onAdd} />
-      <TransactionsList transactions={transactions} />
+      <TransactionsList
+        transactions={
+          filteredTransactions ? filteredTransactions : transactions
+        }
+      />
       <CheckTransactionsForm onSubmit={onCheck} />
     </div>
   );

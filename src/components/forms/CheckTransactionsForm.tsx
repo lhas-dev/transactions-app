@@ -10,7 +10,6 @@ const CheckTransactionsForm = ({ onSubmit }: CheckTransactionsFormProps) => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     onSubmit(amount);
-    setAmount("");
   };
 
   return (

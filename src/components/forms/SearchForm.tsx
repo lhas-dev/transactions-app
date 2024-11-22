@@ -14,25 +14,32 @@ const SearchForm = ({
     onSubmit("", "");
   };
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    onSubmit(startDate, endDate);
+  };
+
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       <input
         value={startDate}
         onChange={(event) => setStartDate(event.target.value)}
         type="date"
         placeholder="Start date"
+        required
       />
       <input
         value={endDate}
         onChange={(event) => setEndDate(event.target.value)}
         type="date"
         placeholder="End date"
+        required
       />
-      <button onClick={() => onSubmit(startDate, endDate)}>
-        Filter by date
+      <button type="submit">Filter by date</button>
+      <button type="button" onClick={onClear}>
+        Clear date
       </button>
-      <button onClick={onClear}>Clear date</button>
-    </div>
+    </form>
   );
 };
 

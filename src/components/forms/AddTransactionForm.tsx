@@ -20,6 +20,7 @@ const AddTransactionForm = ({ onSubmit }: AddTransactionFormProps) => {
         value={amount}
         onChange={(event) => setAmount(event.target.value)}
         placeholder="Amount"
+        required
       />
       <button type="submit">Add Transaction</button>
     </form>
