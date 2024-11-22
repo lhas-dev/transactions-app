@@ -1,60 +1,9 @@
-import { useEffect, useState } from 'react';
-
-interface Transaction {
-  id: number;
-  amount: number;
-}
-
-const getPastTransactions = async () => {
-  return [
-    {
-      id: 1,
-      amount: 100,
-    },
-    {
-      id: 2,
-      amount: 100,
-    },
-  ] as Array<Transaction>;
-}
-
-const TransactionsList = ({ transactions }: { transactions: Array<Transaction> }) => {
-
-  return (
-    <ul>{transactions.map(transaction => (
-      <li key={transaction.id}>
-        <p>
-          <strong>ID:</strong>{transaction.id}
-        </p>
-        <p>
-          <strong>Amount:</strong>{transaction.amount}
-        </p>
-      </li>
-    ))}</ul>
-  )
-}
-
-const SearchForm = ({ onSubmit }: { onSubmit: (value: string) => void }) => {
-  const [value, setValue] = useState('');
-
-  return (
-    <div>
-      <input value={value} onChange={event => setValue(event.target.value)} type="number" placeholder="Target value" />
-      <button onClick={() => onSubmit(value)}>Check Transactions</button>
-    </div>
-  )
-}
-
-const AddNewTransactionForm = ({ onSubmit }) => {
-  const [amount, setAmount] = useState('');
-
-  return (
-    <form onSubmit={onSubmit}>
-      <input type="number" placeholder="Amount" />
-      <button type="submit">Add Transaction</button>
-    </form>
-  )
-}
+import { useEffect, useState } from "react";
+import { Transaction } from "./types";
+import getPastTransactions from "./helpers/getPastTransactions";
+import TransactionsList from "./components/TransactionsList";
+import AddTransactionForm from "./components/AddTransactionForm";
+import SearchForm from "./components/SearchForm";
 
 export default function App() {
   const [transactions, setTransactions] = useState<Array<Transaction>>([]);
@@ -69,14 +18,17 @@ export default function App() {
     cb();
   }, []);
 
-  const onSubmit = (value: string) => {
-    console.log('search', value);
+  const onSearch = (startDate: string, endDate: string) => {
+    console.log("startDate", startDate);
+    console.log("endDate", endDate);
   };
+
+  const onAdd = (value: string) => {};
 
   return (
     <div className="App">
-      <SearchForm onSubmit={onSubmit} />
-      <AddNewTransactionForm onAdd={onAdd} />
+      <SearchForm onSubmit={onSearch} />
+      <AddTransactionForm onSubmit={onAdd} />
       <TransactionsList transactions={transactions} />
     </div>
   );
