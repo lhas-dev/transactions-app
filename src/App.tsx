@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
+import { v4 as uuid } from "uuid";
 import { Transaction } from "./types";
 import getPastTransactions from "./helpers/getPastTransactions";
 import TransactionsList from "./components/TransactionsList";
-import AddTransactionForm from "./components/AddTransactionForm";
-import SearchForm from "./components/SearchForm";
-import { v4 as uuid } from "uuid";
+import AddTransactionForm from "./components/forms/AddTransactionForm";
+import SearchForm from "./components/forms/SearchForm";
+import CheckTransactionsForm from "./components/forms/CheckTransactionsForm";
 
 export default function App() {
   const [transactions, setTransactions] = useState<Array<Transaction>>([]);
@@ -35,11 +36,16 @@ export default function App() {
     ]);
   };
 
+  const onCheck = () => {
+    console.log("Checking transactions");
+  };
+
   return (
     <div className="App">
       <SearchForm onSubmit={onSearch} />
       <AddTransactionForm onSubmit={onAdd} />
       <TransactionsList transactions={transactions} />
+      <CheckTransactionsForm onSubmit={onCheck} />
     </div>
   );
 }
